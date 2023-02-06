@@ -4,6 +4,7 @@ import StepFooter from "../StepFooter";
 import { ADD_ONS, AVAILABLE_PLANS } from "../../data";
 import Plan from "../../types/plan";
 import AddOn from "../../types/add-on";
+import genUniqueId from "../../utility/genUniqueId";
 
 export default function Step4(props: StepProps): JSX.Element {
     function prevBtnClickHandler(): void {
@@ -84,7 +85,10 @@ export default function Step4(props: StepProps): JSX.Element {
                         aria-label={"adds on"}
                     >
                         {selectedAddOns.map(addOn => (
-                            <div className={"flex justify-between"}>
+                            <div
+                                key={genUniqueId()}
+                                className={"flex justify-between"}
+                            >
                                 <p className={"text-gray-400"}>{addOn.title}</p>
                                 <p className={"text-marine-blue"}>
                                     +$

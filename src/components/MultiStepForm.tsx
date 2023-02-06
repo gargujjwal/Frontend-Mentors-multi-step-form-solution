@@ -55,7 +55,7 @@ export default function MultiStepForm(props: MultiStepFormProps): JSX.Element {
                 className={"flex flex-1 flex-col justify-between py-12 px-[8%]"}
             >
                 {formStep === stepsOfForm.length ? (
-                    <ThankYou />
+                    <ThankYou userData={props.userData} />
                 ) : (
                     stepsOfForm[formStep]
                 )}

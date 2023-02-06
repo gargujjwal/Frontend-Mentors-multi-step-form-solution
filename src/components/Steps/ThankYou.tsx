@@ -1,6 +1,8 @@
 import thankYouIcon from "../../assets/images/icon-thank-you.svg";
+import ThankYouProps from "../../types/props/thank-you-props";
 
-export default function ThankYou(): JSX.Element {
+export default function ThankYou(props: ThankYouProps): JSX.Element {
+    console.log(props.userData);
     return (
         <div className={"mt-20 flex flex-col gap-10 px-20 text-center"}>
             <div className={"mx-auto h-2/5 w-2/5 rounded-full"}>

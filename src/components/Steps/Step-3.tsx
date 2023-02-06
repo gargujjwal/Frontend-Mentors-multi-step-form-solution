@@ -78,10 +78,6 @@ export default function Step3(props: Step3Props): JSX.Element {
             props.onChange({
                 addOnIDs: step3Data,
             });
-
-        console.log(step3Data);
-        console.log(props.userData);
-
         props.onFormStepChange("INCREMENT");
     }
 
