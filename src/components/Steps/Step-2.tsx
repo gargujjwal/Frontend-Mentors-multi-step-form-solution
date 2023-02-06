@@ -1,16 +1,9 @@
 import StepHeader from "./StepHeader";
-import arcadeIcon from "../../assets/images/icon-arcade.svg";
-import advancedIcon from "../../assets/images/icon-advanced.svg";
-import proIcon from "../../assets/images/icon-pro.svg";
+
 import ToggleSwitch from "../UI/ToggleSwitch";
+import { availablePlans, Plan as PlanInterface } from "../../data";
 
-interface Plan {
-    imgPath: string;
-    title: string;
-    cost: number;
-}
-
-interface PlanProp extends Plan {
+interface PlanProp extends PlanInterface {
     monthly: boolean;
     value: string;
     id: string;
@@ -51,23 +44,6 @@ function Plan(props: PlanProp) {
 }
 
 export default function Step2(): JSX.Element {
-    const availablePlans: Plan[] = [
-        {
-            imgPath: arcadeIcon,
-            cost: 9,
-            title: "arcade",
-        },
-        {
-            imgPath: advancedIcon,
-            cost: 12,
-            title: "advanced",
-        },
-        {
-            imgPath: proIcon,
-            title: "pro",
-            cost: 15,
-        },
-    ];
     return (
         <div>
             <StepHeader

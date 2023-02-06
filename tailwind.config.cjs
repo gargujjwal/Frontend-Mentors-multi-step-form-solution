@@ -7,6 +7,7 @@ module.exports = {
                 body: ["Ubuntu", "sans-serif"]
             },
             colors: {
+                "light-marine-blue": "hsl(213, 96%, 28%)",
                 "marine-blue": "hsl(213, 96%, 18%)",
                 "purplish-blue": "hsl(243, 100%, 62%)",
                 "pastel-blue": "hsl(228, 100%, 84%)",

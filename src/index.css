@@ -3,10 +3,6 @@
 @tailwind utilities;
 
 
-.input {
-    @apply rounded-lg border-2 border-gray-300 p-3 px-5 text-xl text-marine-blue font-bold mt-2 w-full hover:border-purplish-blue focus:outline-none focus:border-purplish-blue
-}
-
 .toggle-switch:checked ~ .toggle-ball {
     @apply translate-x-7
 }

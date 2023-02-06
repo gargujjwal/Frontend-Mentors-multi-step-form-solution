@@ -1,13 +1,7 @@
 import StepHeader from "./StepHeader";
-import genUniqueId from "../../utility/genUniqueId";
+import { AddOns, AddOnsOption as AddsOnsOptionInterface } from "../../data";
 
-interface AddOnsOption {
-    title: string;
-    desc: string;
-    cost: number;
-}
-
-interface AddOnsOptionProp extends AddOnsOption {
+interface AddOnsOptionProp extends AddsOnsOptionInterface {
     id: string;
 }
 
@@ -47,23 +41,6 @@ function AddOnsOption(props: AddOnsOptionProp): JSX.Element {
 }
 
 export default function Step3(): JSX.Element {
-    const options: AddOnsOption[] = [
-        {
-            title: "online service",
-            desc: "Access to multiplayer games",
-            cost: 1,
-        },
-        {
-            title: "Larger storage",
-            desc: "Extra 1TB of cloud save",
-            cost: 2,
-        },
-        {
-            title: "Customizable Profile",
-            desc: "Custom theme on your profile",
-            cost: 2,
-        },
-    ];
     return (
         <div>
             <StepHeader
@@ -72,12 +49,8 @@ export default function Step3(): JSX.Element {
             />
 
             <div className={"flex flex-col gap-6"}>
-                {options.map(option => (
-                    <AddOnsOption
-                        key={genUniqueId()}
-                        id={genUniqueId()}
-                        {...option}
-                    />
+                {AddOns.map(option => (
+                    <AddOnsOption key={option.id} {...option} />
                 ))}
             </div>
         </div>
