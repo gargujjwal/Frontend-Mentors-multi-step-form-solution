@@ -3,21 +3,5 @@
 @tailwind utilities;
 
 
-.toggle-switch:checked ~ .toggle-ball {
-    @apply translate-x-7
-}
-
-.plan-card-inp:checked + .plan-card-label {
-    @apply border-purplish-blue bg-magnolia
-}
-
-/* CSS for custom check box */
-.custom-checkbox__inp:checked + .custom-checkbox__box {
-    @apply bg-purplish-blue text-white border-0
-}
-
-.custom-checkbox__inp:checked + .custom-checkbox__box:after {
-    @apply block
-}
 
 

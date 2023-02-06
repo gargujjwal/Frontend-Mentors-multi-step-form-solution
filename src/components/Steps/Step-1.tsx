@@ -1,231 +1,272 @@
-import StepHeader from "./StepHeader";
-import { ChangeEvent, useEffect, useState } from "react";
-
-type Value = {
-    value: string;
-    isValid: boolean | null;
-};
+import StepHeader from "../StepHeader";
+import { ChangeEvent, useEffect, useReducer, useState } from "react";
+import StepFooter from "../StepFooter";
+import { Step1Props } from "../../types/props/step-props";
+import {
+    validateEmail,
+    validateName,
+    validatePhoneNumber,
+} from "../../utility/validators";
 
 type Step1Data = {
-    name: Value;
-    email: Value;
-    phone: Value;
+    name: { value: string; isValid: boolean | null };
+    email: { value: string; isValid: boolean | null };
+    phoneNum: { value: string; isValid: boolean | null };
 };
 
-type Step1Props = {
-    onValidInputs: () => void;
-    onInvalidInputs: () => void;
-};
+type ActionType =
+    | { type: "USER_INPUT_NAME"; payload: string }
+    | { type: "USER_INPUT_EMAIL"; payload: string }
+    | { type: "USER_INPUT_PHONE_NUM"; payload: string }
+    | { type: "INPUT_NAME_BLUR" }
+    | { type: "INPUT_EMAIL_BLUR" }
+    | { type: "INPUT_PHONE_NUM_BLUR" };
+
+function step1Reducer(previousState: Step1Data, action: ActionType): Step1Data {
+    switch (action.type) {
+        case "USER_INPUT_NAME":
+            return {
+                ...previousState,
+                name: {
+                    value: action.payload,
+                    isValid: previousState.name.isValid,
+                },
+            };
+        case "USER_INPUT_EMAIL":
+            return {
+                ...previousState,
+                email: {
+                    value: action.payload,
+                    isValid: previousState.email.isValid,
+                },
+            };
+        case "USER_INPUT_PHONE_NUM":
+            return {
+                ...previousState,
+                phoneNum: {
+                    value: action.payload,
+                    isValid: previousState.phoneNum.isValid,
+                },
+            };
+        case "INPUT_NAME_BLUR":
+            return {
+                ...previousState,
+                name: {
+                    value: previousState.name.value,
+                    isValid: validateName(previousState.name.value),
+                },
+            };
+        case "INPUT_EMAIL_BLUR":
+            return {
+                ...previousState,
+                email: {
+                    value: previousState.email.value,
+                    isValid: validateEmail(previousState.email.value),
+                },
+            };
+        case "INPUT_PHONE_NUM_BLUR":
+            return {
+                ...previousState,
+                phoneNum: {
+                    value: previousState.phoneNum.value,
+                    isValid: validatePhoneNumber(previousState.phoneNum.value),
+                },
+            };
+    }
+}
 
 export default function Step1(props: Step1Props): JSX.Element {
-    const [step1Data, setStep1Data] = useState<Step1Data>({
-        name: { value: "", isValid: null },
-        email: { value: "", isValid: null },
-        phone: { value: "", isValid: null },
+    const { name, email, phoneNum } = props.userData;
+    const [step1Data, dispatchStep1Data] = useReducer(step1Reducer, {
+        name: {
+            value: name,
+            isValid: name.length === 0 ? null : validateName(name),
+        },
+        email: {
+            value: email,
+            isValid: email.length === 0 ? null : validateEmail(email),
+        },
+        phoneNum: {
+            value: phoneNum,
+            isValid:
+                phoneNum.length === 0 ? null : validatePhoneNumber(phoneNum),
+        },
     });
+    const [formValidity, setFormValidity] = useState<boolean>(
+        () =>
+            step1Data.name.isValid! &&
+            step1Data.email.isValid! &&
+            step1Data.phoneNum.isValid!
+    );
 
-    const {
-        name: { isValid: nameIsValid },
-        email: { isValid: emailIsValid },
-        phone: { isValid: phoneIsValid },
-    } = step1Data;
-
+    // check for form-validity on change of validity of each field
     useEffect(() => {
-        console.dir(step1Data);
-        const formValidateTimeout = setTimeout(() => {
-            if (
-                step1Data.phone.isValid &&
-                step1Data.email.isValid &&
-                step1Data.name.isValid
-            )
-                props.onValidInputs();
-            else props.onInvalidInputs();
-        }, 500);
-        console.log("here");
-        return () => clearTimeout(formValidateTimeout);
-    }, [step1Data]);
-
-    function validateFields(fields: "name" | "email" | "phone" | "all"): void {
-        switch (fields) {
-            case "name":
-                setStep1Data(prevState => ({
-                    ...prevState,
-                    name: {
-                        value: prevState.name.value,
-                        isValid:
-                            prevState.name.value !== "" ||
-                            prevState.name.value.match(/\d/) !== null,
-                    },
-                }));
-                break;
-            case "email":
-                setStep1Data(prevState => ({
-                    ...prevState,
-                    email: {
-                        value: prevState.email.value,
-                        isValid:
-                            /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(
-                                prevState.email.value
-                            ),
-                    },
-                }));
-                break;
-            case "phone":
-                setStep1Data(prevState => ({
-                    ...prevState,
-                    phone: {
-                        value: prevState.phone.value,
-                        isValid:
-                            /^(\+\d{1,2}\s?)?1?\-?\.?\s?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$/.test(
-                                prevState.phone.value
-                            ),
-                    },
-                }));
-                break;
-            case "all":
-                validateFields("name");
-                validateFields("email");
-                validateFields("phone");
-        }
-    }
+        const formValidatorTimeout = setTimeout(
+            () =>
+                setFormValidity(
+                    step1Data.name.isValid! &&
+                        step1Data.email.isValid! &&
+                        step1Data.phoneNum.isValid!
+                ),
+            500
+        );
+        return () => clearTimeout(formValidatorTimeout);
+    }, [step1Data.name, step1Data.email, step1Data.phoneNum]);
 
     function nameChangeHandler(e: ChangeEvent<HTMLInputElement>): void {
-        setStep1Data(prevState => ({
-            ...prevState,
-            name: {
-                value: e.target.value,
-                isValid: prevState.name.isValid,
-            },
-        }));
+        const { value } = e.target;
+        dispatchStep1Data({ type: "USER_INPUT_NAME", payload: value });
     }
 
     function emailChangeHandler(e: ChangeEvent<HTMLInputElement>): void {
-        setStep1Data(prevState => ({
-            ...prevState,
-            email: {
-                value: e.target.value.trim(),
-                isValid: prevState.email.isValid,
-            },
-        }));
+        const { value } = e.target;
+        dispatchStep1Data({ type: "USER_INPUT_EMAIL", payload: value });
     }
 
     function phoneChangeHandler(e: ChangeEvent<HTMLInputElement>): void {
-        setStep1Data(prevState => ({
-            ...prevState,
-            phone: {
-                value: e.target.value.trim(),
-                isValid: prevState.phone.isValid,
-            },
-        }));
+        const { value } = e.target;
+        dispatchStep1Data({ type: "USER_INPUT_PHONE_NUM", payload: value });
     }
 
+    function step1FormSubmitHandler() {
+        props.onChange &&
+            props.onChange({
+                name: step1Data.name.value,
+                email: step1Data.email.value,
+                phoneNum: step1Data.phoneNum.value,
+            });
+        props.onFormStepChange("INCREMENT");
+    }
+
+    const {
+        name: { isValid: nameValidity },
+        phoneNum: { isValid: phoneNumValidity },
+        email: { isValid: emailValidity },
+    } = step1Data;
+
     return (
-        <div>
-            <StepHeader
-                heading={"Personal info"}
-                headingCaption={
-                    "Please provide your name, email address, and phone number."
-                }
+        <>
+            <div>
+                <StepHeader
+                    heading={"Personal info"}
+                    headingCaption={
+                        "Please provide your name, email address, and phone number."
+                    }
+                />
+                <fieldset
+                    className={"flex flex-col gap-6"}
+                    aria-label={"step-1 form"}
+                >
+                    <div>
+                        <div className={"flex justify-between"}>
+                            <label
+                                className={`text-lg text-marine-blue`}
+                                htmlFor="name"
+                            >
+                                Name
+                            </label>
+
+                            <span
+                                className={
+                                    "text-base font-bold text-strawberry-red"
+                                }
+                                aria-label={"error-message"}
+                            >
+                                {nameValidity === false &&
+                                    "Field value is Invalid"}
+                            </span>
+                        </div>
+                        <input
+                            id={"name"}
+                            className={`mt-2 w-full rounded-lg border-2 border-gray-300 p-3 px-5 text-xl font-bold text-marine-blue hover:border-purplish-blue focus:border-purplish-blue focus:outline-none ${
+                                nameValidity === false &&
+                                "border-2 border-strawberry-red bg-rose-100"
+                            }`}
+                            type="text"
+                            required
+                            value={step1Data.name.value}
+                            placeholder={"e.g. Vanessa Mint"}
+                            onBlur={dispatchStep1Data.bind(null, {
+                                type: "INPUT_NAME_BLUR",
+                            })}
+                            onChange={nameChangeHandler}
+                        />
+                    </div>
+                    <div>
+                        <div className={"flex justify-between"}>
+                            <label
+                                className={`text-lg text-marine-blue `}
+                                htmlFor={"email"}
+                            >
+                                Email Address
+                            </label>
+
+                            <span
+                                className={
+                                    "text-base font-bold text-strawberry-red"
+                                }
+                                aria-label={"error-message"}
+                            >
+                                {emailValidity === false &&
+                                    "Field value is Invalid"}
+                            </span>
+                        </div>
+                        <input
+                            id={"email"}
+                            className={`mt-2 w-full rounded-lg border-2 border-gray-300 p-3 px-5 text-xl font-bold text-marine-blue hover:border-purplish-blue focus:border-purplish-blue focus:outline-none ${
+                                emailValidity === false &&
+                                "border-2 border-strawberry-red bg-rose-100"
+                            }`}
+                            type="email"
+                            value={step1Data.email.value}
+                            required
+                            placeholder={"e.g. vanessamint@gmail.com"}
+                            onBlur={dispatchStep1Data.bind(null, {
+                                type: "INPUT_EMAIL_BLUR",
+                            })}
+                            onChange={emailChangeHandler}
+                        />
+                    </div>
+                    <div>
+                        <div className={"flex justify-between"}>
+                            <label
+                                className={"text-lg text-marine-blue"}
+                                htmlFor="name"
+                            >
+                                Phone Number
+                            </label>
+
+                            <span
+                                className={`text-base font-bold text-strawberry-red `}
+                                aria-label={"error-message"}
+                            >
+                                {phoneNumValidity === false &&
+                                    "Field value is Invalid"}
+                            </span>
+                        </div>
+                        <input
+                            id={"phoneNum"}
+                            className={`mt-2 w-full rounded-lg border-2 border-gray-300 p-3 px-5 text-xl font-bold text-marine-blue hover:border-purplish-blue focus:border-purplish-blue focus:outline-none ${
+                                phoneNumValidity === false &&
+                                "border-2 border-strawberry-red bg-rose-100"
+                            }`}
+                            type="tel"
+                            required
+                            value={step1Data.phoneNum.value}
+                            placeholder={"e.g. +1 234 567 890"}
+                            onBlur={dispatchStep1Data.bind(null, {
+                                type: "INPUT_PHONE_NUM_BLUR",
+                            })}
+                            onChange={phoneChangeHandler}
+                        />
+                    </div>
+                </fieldset>
+            </div>
+            <StepFooter
+                formStep={0}
+                blockNextBtn={!formValidity}
+                onNextBtnClick={step1FormSubmitHandler}
             />
-            <fieldset
-                className={"flex flex-col gap-6"}
-                aria-label={"step-1 form"}
-            >
-                <div>
-                    <div className={"flex justify-between"}>
-                        <label
-                            className={`text-lg text-marine-blue`}
-                            htmlFor="name"
-                        >
-                            Name
-                        </label>
-
-                        <span
-                            className={
-                                "text-base font-bold text-strawberry-red"
-                            }
-                            aria-label={"error-message"}
-                        >
-                            {nameIsValid === false && "Field value is Invalid"}
-                        </span>
-                    </div>
-                    <input
-                        id={"name"}
-                        className={`mt-2 w-full rounded-lg border-2 border-gray-300 p-3 px-5 text-xl font-bold text-marine-blue hover:border-purplish-blue focus:border-purplish-blue focus:outline-none ${
-                            nameIsValid === false &&
-                            "border-2 border-strawberry-red bg-rose-100"
-                        }`}
-                        type="text"
-                        required
-                        value={step1Data.name.value}
-                        placeholder={"e.g. Vanessa Mint"}
-                        onBlur={validateFields.bind(null, "name")}
-                        onChange={nameChangeHandler}
-                    />
-                </div>
-                <div>
-                    <div className={"flex justify-between"}>
-                        <label
-                            className={`text-lg text-marine-blue `}
-                            htmlFor={"email"}
-                        >
-                            Email Address
-                        </label>
-
-                        <span
-                            className={
-                                "text-base font-bold text-strawberry-red"
-                            }
-                            aria-label={"error-message"}
-                        >
-                            {emailIsValid === false && "Field value is Invalid"}
-                        </span>
-                    </div>
-                    <input
-                        id={"email"}
-                        className={`mt-2 w-full rounded-lg border-2 border-gray-300 p-3 px-5 text-xl font-bold text-marine-blue hover:border-purplish-blue focus:border-purplish-blue focus:outline-none ${
-                            emailIsValid === false &&
-                            "border-2 border-strawberry-red bg-rose-100"
-                        }`}
-                        type="email"
-                        value={step1Data.email.value}
-                        required
-                        placeholder={"e.g. vanessamint@gmail.com"}
-                        onBlur={validateFields.bind(null, "email")}
-                        onChange={emailChangeHandler}
-                    />
-                </div>
-                <div>
-                    <div className={"flex justify-between"}>
-                        <label
-                            className={"text-lg text-marine-blue"}
-                            htmlFor="name"
-                        >
-                            Phone Number
-                        </label>
-
-                        <span
-                            className={`text-base font-bold text-strawberry-red `}
-                            aria-label={"error-message"}
-                        >
-                            {phoneIsValid === false && "Field value is Invalid"}
-                        </span>
-                    </div>
-                    <input
-                        id={"phoneNum"}
-                        className={`mt-2 w-full rounded-lg border-2 border-gray-300 p-3 px-5 text-xl font-bold text-marine-blue hover:border-purplish-blue focus:border-purplish-blue focus:outline-none ${
-                            phoneIsValid === false &&
-                            "border-2 border-strawberry-red bg-rose-100"
-                        }`}
-                        type="tel"
-                        required
-                        value={step1Data.phone.value}
-                        placeholder={"e.g. +1 234 567 890"}
-                        onBlur={validateFields.bind(null, "phone")}
-                        onChange={phoneChangeHandler}
-                    />
-                </div>
-            </fieldset>
-        </div>
+        </>
     );
 }

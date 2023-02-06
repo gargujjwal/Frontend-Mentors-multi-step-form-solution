@@ -8,9 +8,9 @@ export default function StepHeader(props: StepHeaderProps): JSX.Element {
             <h1 className={"text-4xl font-bold text-marine-blue"}>
                 {props.heading}
             </h1>
-            <caption className={"text-left text-gray-400"}>
+            <div className={"text-left text-gray-400"}>
                 {props.headingCaption}
-            </caption>
+            </div>
         </header>
     );
 }

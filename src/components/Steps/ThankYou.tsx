@@ -1,4 +1,4 @@
-import thankYouIcon from "../assets/images/icon-thank-you.svg";
+import thankYouIcon from "../../assets/images/icon-thank-you.svg";
 
 export default function ThankYou(): JSX.Element {
     return (
