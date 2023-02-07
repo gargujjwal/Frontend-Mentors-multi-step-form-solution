@@ -5,6 +5,7 @@ import { Step2Props } from "../../types/props/step-props";
 import Plan from "../../types/plan";
 import { AVAILABLE_PLANS } from "../../data";
 import StepFooter from "../StepFooter";
+import Step from "../UI/Step";
 
 interface PlanProps extends Plan {
     planType: "m" | "y";
@@ -21,7 +22,7 @@ function PlanCard(props: PlanProps) {
     }
 
     return (
-        <label htmlFor={props.id}>
+        <label className={"grow basis-0"} htmlFor={props.id}>
             <input
                 className={"peer sr-only"}
                 type={"radio"}
@@ -32,11 +33,11 @@ function PlanCard(props: PlanProps) {
                 checked={isChecked}
             />
             <div
-                className={`sm:grid-rows-${
+                className={`cursor-pointer select-none rounded-lg border-2 border-gray-100 shadow-sm transition-all hover:scale-105 hover:border-purplish-blue peer-checked:border-purplish-blue peer-checked:bg-magnolia sm:grid sm:grid-cols-[1fr_2fr] sm:gap-x-0 sm:py-3 sm:px-4 xl:grid-cols-1 xl:p-7 sm:grid-rows-${
                     props.planType === "m" ? 2 : 3
-                } cursor-pointer select-none rounded-lg border-2 border-gray-100 shadow-sm transition-all hover:scale-105 hover:border-purplish-blue peer-checked:border-purplish-blue peer-checked:bg-magnolia sm:grid sm:grid-cols-[1fr_2fr] sm:gap-x-0 sm:py-3 sm:px-4 xl:p-7`}
+                } `}
             >
-                <div className="rounded-full drop-shadow-sm sm:row-span-3 sm:row-span-2 sm:h-12 sm:w-12 xl:mb-16 xl:h-20 xl:w-20">
+                <div className="rounded-full drop-shadow-sm sm:row-span-3 sm:row-span-3 sm:h-12 sm:w-12 xl:mb-16 xl:h-20 xl:w-20">
                     <img
                         className={"h-full w-full xl:my-auto"}
                         src={props.img}
@@ -116,67 +117,72 @@ export default function Step2(props: Step2Props): JSX.Element {
     }
 
     return (
-        <div className={"sm:flex sm:flex-col sm:gap-6"}>
-            <div className={"sm:flex sm:flex-col sm:gap-6"}>
-                <StepHeader
-                    heading={"Select your plan"}
-                    headingCaption={
-                        "You have the option of monthly or yearly billing."
-                    }
-                />
-
-                <div
-                    className={
-                        "flex sm:flex-col sm:gap-3 xl:my-12 xl:justify-between xl:gap-8"
-                    }
-                    aria-label={"available-plans"}
-                >
-                    {AVAILABLE_PLANS.map(plan => (
-                        <PlanCard
-                            key={plan.id}
-                            planType={step2Data.planType}
-                            onChange={planChangeHandler}
-                            checked={props.userData.planID === plan.id}
-                            {...plan}
-                        />
-                    ))}
-                </div>
-
-                <div
-                    className={
-                        "flex justify-center bg-alabaster font-semibold sm:gap-7 sm:py-4 sm:text-lg xl:gap-8 xl:py-6 xl:text-xl"
-                    }
-                >
-                    <span
-                        className={` ${
-                            step2Data.planType === "m"
-                                ? "text-marine-blue"
-                                : "text-gray-400"
-                        } sm:text-base`}
-                    >
-                        Monthly
-                    </span>
-                    <ToggleSwitch
-                        checked={step2Data.planType === "y"}
-                        onChange={onToggleHandler}
-                    />
-                    <span
-                        className={`${
-                            step2Data.planType === "m"
-                                ? "text-gray-400"
-                                : "text-marine-blue"
-                        } sm:text-base`}
-                    >
-                        Yearly
-                    </span>
-                </div>
-            </div>
-            <StepFooter
-                formStep={1}
-                blockNextBtn={!formValidity}
-                onPrevBtnClick={prevBtnClickHandler}
-                onNextBtnClick={step2FormSubmitHandler}
+        <Step>
+            <StepHeader
+                heading={"Select your plan"}
+                headingCaption={
+                    "You have the option of monthly or yearly billing."
+                }
             />
-        </div>
+
+            <div
+                className={
+                    "flex sm:my-5 sm:flex-col sm:gap-3 xl:my-12 xl:flex-row xl:justify-between xl:gap-8"
+                }
+                aria-label={"available-plans"}
+            >
+                {AVAILABLE_PLANS.map(plan => (
+                    <PlanCard
+                        key={plan.id}
+                        planType={step2Data.planType}
+                        onChange={planChangeHandler}
+                        checked={props.userData.planID === plan.id}
+                        {...plan}
+                    />
+                ))}
+            </div>
+
+            <div
+                className={
+                    "flex justify-center bg-alabaster font-semibold sm:gap-7 sm:py-4 sm:text-lg sm:text-base xl:gap-8 xl:py-6 xl:text-2xl"
+                }
+            >
+                <span
+                    className={`${
+                        step2Data.planType === "m"
+                            ? "text-marine-blue"
+                            : "text-gray-400"
+                    }`}
+                >
+                    Monthly
+                </span>
+                <ToggleSwitch
+                    checked={step2Data.planType === "y"}
+                    onChange={onToggleHandler}
+                />
+                <span
+                    className={`${
+                        step2Data.planType === "m"
+                            ? "text-gray-400"
+                            : "text-marine-blue"
+                    }`}
+                >
+                    Yearly
+                </span>
+            </div>
+
+            <div
+                className={
+                    "absolute bottom-0 left-0 sm:w-full sm:bg-white sm:p-5"
+                }
+            >
+                <StepFooter
+                    formStep={1}
+                    blockNextBtn={!formValidity}
+                    onPrevBtnClick={prevBtnClickHandler}
+                    onNextBtnClick={step2FormSubmitHandler}
+                />
+            </div>
+        </Step>
     );
 }

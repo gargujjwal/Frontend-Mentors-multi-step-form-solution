@@ -5,6 +5,7 @@ import { Step3Props } from "../../types/props/step-props";
 import { ADD_ONS } from "../../data";
 import AddOn from "../../types/add-on";
 import StepFooter from "../StepFooter";
+import Step from "../UI/Step";
 
 interface AddOnsOptionProp extends AddOn {
     checked: boolean;
@@ -50,13 +51,13 @@ function AddOnsOption(props: AddOnsOptionProp): JSX.Element {
                 >
                     {props.title}
                 </h4>
-                <div className={"text-left text-gray-400 sm:text-[0.75rem]"}>
+                <div className={"text-left text-gray-400 sm:text-base"}>
                     {props.desc}
                 </div>
             </div>
             <div
                 className={
-                    "z-10 font-bold text-purplish-blue sm:text-lg xl:text-xl"
+                    "z-10 font-bold text-purplish-blue sm:text-lg xl:text-2xl"
                 }
             >
                 $
@@ -94,13 +95,13 @@ export default function Step3(props: Step3Props): JSX.Element {
     }
 
     return (
-        <div className={"sm:flex sm:flex-col sm:gap-6"}>
+        <Step>
             <StepHeader
                 heading={"Pick add-ons"}
                 headingCaption={"Add-ons help enhance your gaming experience."}
             />
 
-            <div className={"flex flex-col sm:gap-3 xl:gap-6"}>
+            <div className={"flex flex-col sm:mt-8 sm:gap-3 xl:mt-12 xl:gap-6"}>
                 {ADD_ONS.map(addOn => (
                     <AddOnsOption
                         key={addOn.id}
@@ -116,11 +117,17 @@ export default function Step3(props: Step3Props): JSX.Element {
                 ))}
             </div>
 
-            <StepFooter
-                formStep={2}
-                onPrevBtnClick={prevBtnClickHandler}
-                onNextBtnClick={step3FormSubmitHandler}
-            />
-        </div>
+            <div
+                className={
+                    "absolute bottom-0 left-0 sm:w-full sm:bg-white sm:p-5"
+                }
+            >
+                <StepFooter
+                    formStep={2}
+                    onPrevBtnClick={prevBtnClickHandler}
+                    onNextBtnClick={step3FormSubmitHandler}
+                />
+            </div>
+        </Step>
     );
 }

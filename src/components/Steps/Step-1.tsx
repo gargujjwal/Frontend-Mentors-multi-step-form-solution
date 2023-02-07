@@ -7,6 +7,7 @@ import {
     validateName,
     validatePhoneNumber,
 } from "../../utility/validators";
+import Step from "../UI/Step";
 
 type Step1Data = {
     name: { value: string; isValid: boolean | null };
@@ -145,131 +146,132 @@ export default function Step1(props: Step1Props): JSX.Element {
     } = step1Data;
 
     return (
-        <div className={"flex flex-col gap-8"}>
-            <div className={"sm:flex sm:flex-col"}>
-                <StepHeader
-                    heading={"Personal info"}
-                    headingCaption={
-                        "Please provide your name, email address, and phone number."
-                    }
-                />
-                <fieldset
-                    className={"flex flex-col sm:mt-5 sm:gap-3 xl:gap-6"}
-                    aria-label={"step-1 form"}
-                >
-                    <div>
-                        <div className={"flex justify-between "}>
-                            <label
-                                className={`text-marine-blue sm:text-sm xl:text-lg`}
-                                htmlFor="name"
-                            >
-                                Name
-                            </label>
-
-                            <span
-                                className={
-                                    "font-bold text-strawberry-red sm:text-sm lg:text-base"
-                                }
-                                aria-label={"error-message"}
-                            >
-                                {nameValidity === false &&
-                                    "Field value is Invalid"}
-                            </span>
-                        </div>
-                        <input
-                            id={"name"}
-                            className={`sm:text-md w-full rounded-md border-2 border-gray-300 px-5 font-bold text-marine-blue hover:border-purplish-blue focus:border-purplish-blue focus:outline-none sm:mt-1 sm:py-2 sm:font-semibold xl:mt-2 xl:py-3 xl:text-xl ${
-                                nameValidity === false &&
-                                "border-2 border-strawberry-red bg-rose-100"
-                            }`}
-                            type="text"
-                            required
-                            value={step1Data.name.value}
-                            placeholder={"e.g. Vanessa Mint"}
-                            onBlur={dispatchStep1Data.bind(null, {
-                                type: "INPUT_NAME_BLUR",
-                            })}
-                            onChange={nameChangeHandler}
-                        />
-                    </div>
-                    <div>
-                        <div className={"flex justify-between"}>
-                            <label
-                                className={`text-marine-blue sm:text-sm xl:text-lg`}
-                                htmlFor={"email"}
-                            >
-                                Email Address
-                            </label>
-
-                            <span
-                                className={
-                                    "font-bold text-strawberry-red sm:text-sm lg:text-base"
-                                }
-                                aria-label={"error-message"}
-                            >
-                                {emailValidity === false &&
-                                    "Field value is Invalid"}
-                            </span>
-                        </div>
-                        <input
-                            id={"email"}
-                            className={`sm:text-md w-full rounded-md border-2 border-gray-300 px-5 font-bold text-marine-blue hover:border-purplish-blue focus:border-purplish-blue focus:outline-none sm:mt-1 sm:py-2 sm:font-semibold xl:mt-2 xl:py-3 xl:text-xl ${
-                                emailValidity === false &&
-                                "border-2 border-strawberry-red bg-rose-100"
-                            }`}
-                            type="email"
-                            value={step1Data.email.value}
-                            required
-                            placeholder={"e.g. vanessamint@gmail.com"}
-                            onBlur={dispatchStep1Data.bind(null, {
-                                type: "INPUT_EMAIL_BLUR",
-                            })}
-                            onChange={emailChangeHandler}
-                        />
-                    </div>
-                    <div>
-                        <div className={"flex justify-between"}>
-                            <label
-                                className={
-                                    "text-marine-blue sm:text-sm xl:text-lg"
-                                }
-                                htmlFor="name"
-                            >
-                                Phone Number
-                            </label>
-
-                            <span
-                                className={`font-bold text-strawberry-red sm:text-sm lg:text-base`}
-                                aria-label={"error-message"}
-                            >
-                                {phoneNumValidity === false &&
-                                    "Field value is Invalid"}
-                            </span>
-                        </div>
-                        <input
-                            id={"phoneNum"}
-                            className={`sm:text-md w-full rounded-md border-2 border-gray-300 px-5 font-bold text-marine-blue hover:border-purplish-blue focus:border-purplish-blue focus:outline-none sm:mt-1 sm:py-2 sm:font-semibold xl:mt-2 xl:py-3 xl:text-xl ${
-                                phoneNumValidity === false &&
-                                "border-2 border-strawberry-red bg-rose-100"
-                            }`}
-                            type="tel"
-                            required
-                            value={step1Data.phoneNum.value}
-                            placeholder={"e.g. +1 234 567 890"}
-                            onBlur={dispatchStep1Data.bind(null, {
-                                type: "INPUT_PHONE_NUM_BLUR",
-                            })}
-                            onChange={phoneChangeHandler}
-                        />
-                    </div>
-                </fieldset>
-            </div>
-
-            <StepFooter
-                formStep={0}
-                blockNextBtn={!formValidity}
-                onNextBtnClick={step1FormSubmitHandler}
+        <Step>
+            <StepHeader
+                heading={"Personal info"}
+                headingCaption={
+                    "Please provide your name, email address, and phone number."
+                }
             />
-        </div>
+            <fieldset
+                className={"flex flex-col sm:mt-5 sm:gap-3 xl:mt-16 xl:gap-6"}
+                aria-label={"step-1 form"}
+            >
+                <div>
+                    <div className={"flex justify-between"}>
+                        <label
+                            className={`text-marine-blue sm:text-sm xl:text-xl`}
+                            htmlFor="name"
+                        >
+                            Name
+                        </label>
+
+                        <span
+                            className={
+                                "font-bold text-strawberry-red sm:text-sm lg:text-base"
+                            }
+                            aria-label={"error-message"}
+                        >
+                            {nameValidity === false && "Field value is Invalid"}
+                        </span>
+                    </div>
+                    <input
+                        id={"name"}
+                        className={`sm:text-md w-full rounded-md border-2 border-gray-300 px-5 font-bold text-marine-blue hover:border-purplish-blue focus:border-purplish-blue focus:outline-none sm:mt-1 sm:py-2 sm:font-semibold xl:mt-2 xl:py-3 xl:text-xl ${
+                            nameValidity === false &&
+                            "border-2 border-strawberry-red bg-rose-100"
+                        }`}
+                        type="text"
+                        required
+                        value={step1Data.name.value}
+                        placeholder={"e.g. Vanessa Mint"}
+                        onBlur={dispatchStep1Data.bind(null, {
+                            type: "INPUT_NAME_BLUR",
+                        })}
+                        onChange={nameChangeHandler}
+                    />
+                </div>
+                <div>
+                    <div className={"flex justify-between"}>
+                        <label
+                            className={`text-marine-blue sm:text-sm xl:text-lg`}
+                            htmlFor={"email"}
+                        >
+                            Email Address
+                        </label>
+
+                        <span
+                            className={
+                                "font-bold text-strawberry-red sm:text-sm lg:text-base"
+                            }
+                            aria-label={"error-message"}
+                        >
+                            {emailValidity === false &&
+                                "Field value is Invalid"}
+                        </span>
+                    </div>
+                    <input
+                        id={"email"}
+                        className={`sm:text-md w-full rounded-md border-2 border-gray-300 px-5 font-bold text-marine-blue hover:border-purplish-blue focus:border-purplish-blue focus:outline-none sm:mt-1 sm:py-2 sm:font-semibold xl:mt-2 xl:py-3 xl:text-xl ${
+                            emailValidity === false &&
+                            "border-2 border-strawberry-red bg-rose-100"
+                        }`}
+                        type="email"
+                        value={step1Data.email.value}
+                        required
+                        placeholder={"e.g. vanessamint@gmail.com"}
+                        onBlur={dispatchStep1Data.bind(null, {
+                            type: "INPUT_EMAIL_BLUR",
+                        })}
+                        onChange={emailChangeHandler}
+                    />
+                </div>
+                <div>
+                    <div className={"flex justify-between"}>
+                        <label
+                            className={"text-marine-blue sm:text-sm xl:text-lg"}
+                            htmlFor="name"
+                        >
+                            Phone Number
+                        </label>
+
+                        <span
+                            className={`font-bold text-strawberry-red sm:text-sm lg:text-base`}
+                            aria-label={"error-message"}
+                        >
+                            {phoneNumValidity === false &&
+                                "Field value is Invalid"}
+                        </span>
+                    </div>
+                    <input
+                        id={"phoneNum"}
+                        className={`sm:text-md w-full rounded-md border-2 border-gray-300 px-5 font-bold text-marine-blue hover:border-purplish-blue focus:border-purplish-blue focus:outline-none sm:mt-1 sm:py-2 sm:font-semibold xl:mt-2 xl:py-3 xl:text-xl ${
+                            phoneNumValidity === false &&
+                            "border-2 border-strawberry-red bg-rose-100"
+                        }`}
+                        type="tel"
+                        required
+                        value={step1Data.phoneNum.value}
+                        placeholder={"e.g. +1 234 567 890"}
+                        onBlur={dispatchStep1Data.bind(null, {
+                            type: "INPUT_PHONE_NUM_BLUR",
+                        })}
+                        onChange={phoneChangeHandler}
+                    />
+                </div>
+            </fieldset>
+
+            <div
+                className={
+                    "absolute bottom-0 left-0 sm:w-full sm:bg-white sm:p-5"
+                }
+            >
+                <StepFooter
+                    formStep={0}
+                    blockNextBtn={!formValidity}
+                    onNextBtnClick={step1FormSubmitHandler}
+                />
+            </div>
+        </Step>
     );
 }

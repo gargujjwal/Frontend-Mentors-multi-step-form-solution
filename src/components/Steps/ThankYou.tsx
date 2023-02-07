@@ -1,17 +1,18 @@
 import thankYouIcon from "../../assets/images/icon-thank-you.svg";
 import ThankYouProps from "../../types/props/thank-you-props";
+import Step from "../UI/Step";
 
 export default function ThankYou(props: ThankYouProps): JSX.Element {
     console.log(props.userData);
     return (
-        <div
+        <Step
             className={
-                "mt-20 flex flex-col text-center sm:gap-6 xl:gap-10 xl:px-20"
+                "flex flex-col items-center justify-center text-center sm:gap-6 xl:gap-10"
             }
         >
             <div
                 className={
-                    "mx-auto rounded-full sm:h-1/4 sm:w-1/4 xl:h-2/5 xl:w-2/5"
+                    "mx-auto rounded-full sm:h-1/4 sm:w-1/4 xl:h-1/5 xl:w-1/5"
                 }
             >
                 <img
@@ -30,6 +31,6 @@ export default function ThankYou(props: ThankYouProps): JSX.Element {
                 using our platform. If you ever need support, please feel free
                 to email us at support@loremgaming.com
             </p>
-        </div>
+        </Step>
     );
 }

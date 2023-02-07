@@ -1,5 +1,4 @@
 import { FormEvent, useState } from "react";
-import Attribution from "./Attribution";
 import MultiStepForm from "./MultiStepForm";
 import UserData from "../types/user-data";
 
@@ -43,19 +42,15 @@ function App() {
     }
 
     return (
-        <div
-            className={"flex h-screen flex-col gap-4 bg-magnolia object-cover"}
-        >
-            <div className={"flex-1 xl:px-40 xl:py-20"}>
-                <MultiStepForm
-                    userData={userData}
-                    onStep1Change={step1ChangeHandler}
-                    onStep2Change={step2ChangeHandler}
-                    onStep3Change={step3ChangeHandler}
-                    onSubmit={formSubmitHandler}
-                />
-            </div>
-            <Attribution />
+        <div className={"h-screen bg-magnolia xl:px-40 xl:py-20"}>
+            <MultiStepForm
+                step={0}
+                userData={userData}
+                onStep1Change={step1ChangeHandler}
+                onStep2Change={step2ChangeHandler}
+                onStep3Change={step3ChangeHandler}
+                onSubmit={formSubmitHandler}
+            />
         </div>
     );
 }

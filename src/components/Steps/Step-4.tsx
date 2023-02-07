@@ -5,6 +5,7 @@ import { ADD_ONS, AVAILABLE_PLANS } from "../../data";
 import Plan from "../../types/plan";
 import AddOn from "../../types/add-on";
 import genUniqueId from "../../utility/genUniqueId";
+import Step from "../UI/Step";
 
 export default function Step4(props: StepProps): JSX.Element {
     function prevBtnClickHandler(): void {
@@ -35,7 +36,7 @@ export default function Step4(props: StepProps): JSX.Element {
                 : selectedPlan.yearlyCost
         );
     return (
-        <div className={"sm:flex sm:flex-col sm:gap-6"}>
+        <Step>
             <div className={"sm:flex sm:flex-col sm:gap-6"}>
                 <StepHeader
                     heading={"Finishing up"}
@@ -135,11 +136,17 @@ export default function Step4(props: StepProps): JSX.Element {
                     </p>
                 </div>
             </div>
-            <StepFooter
-                formStep={3}
-                onPrevBtnClick={prevBtnClickHandler}
-                onNextBtnClick={nextBtnClickHandler}
-            />
-        </div>
+            <div
+                className={
+                    "absolute bottom-0 left-0 sm:w-full sm:bg-white sm:p-5"
+                }
+            >
+                <StepFooter
+                    formStep={3}
+                    onPrevBtnClick={prevBtnClickHandler}
+                    onNextBtnClick={nextBtnClickHandler}
+                />
+            </div>
+        </Step>
     );
 }
