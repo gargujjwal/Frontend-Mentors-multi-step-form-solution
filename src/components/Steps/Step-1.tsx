@@ -145,8 +145,8 @@ export default function Step1(props: Step1Props): JSX.Element {
     } = step1Data;
 
     return (
-        <>
-            <div>
+        <div className={"flex flex-col gap-8"}>
+            <div className={"sm:flex sm:flex-col"}>
                 <StepHeader
                     heading={"Personal info"}
                     headingCaption={
@@ -154,13 +154,13 @@ export default function Step1(props: Step1Props): JSX.Element {
                     }
                 />
                 <fieldset
-                    className={"flex flex-col gap-6"}
+                    className={"flex flex-col sm:mt-5 sm:gap-3 xl:gap-6"}
                     aria-label={"step-1 form"}
                 >
                     <div>
-                        <div className={"flex justify-between"}>
+                        <div className={"flex justify-between "}>
                             <label
-                                className={`text-lg text-marine-blue`}
+                                className={`text-marine-blue sm:text-sm xl:text-lg`}
                                 htmlFor="name"
                             >
                                 Name
@@ -168,7 +168,7 @@ export default function Step1(props: Step1Props): JSX.Element {
 
                             <span
                                 className={
-                                    "text-base font-bold text-strawberry-red"
+                                    "font-bold text-strawberry-red sm:text-sm lg:text-base"
                                 }
                                 aria-label={"error-message"}
                             >
@@ -178,7 +178,7 @@ export default function Step1(props: Step1Props): JSX.Element {
                         </div>
                         <input
                             id={"name"}
-                            className={`mt-2 w-full rounded-lg border-2 border-gray-300 p-3 px-5 text-xl font-bold text-marine-blue hover:border-purplish-blue focus:border-purplish-blue focus:outline-none ${
+                            className={`sm:text-md w-full rounded-md border-2 border-gray-300 px-5 font-bold text-marine-blue hover:border-purplish-blue focus:border-purplish-blue focus:outline-none sm:mt-1 sm:py-2 sm:font-semibold xl:mt-2 xl:py-3 xl:text-xl ${
                                 nameValidity === false &&
                                 "border-2 border-strawberry-red bg-rose-100"
                             }`}
@@ -195,7 +195,7 @@ export default function Step1(props: Step1Props): JSX.Element {
                     <div>
                         <div className={"flex justify-between"}>
                             <label
-                                className={`text-lg text-marine-blue `}
+                                className={`text-marine-blue sm:text-sm xl:text-lg`}
                                 htmlFor={"email"}
                             >
                                 Email Address
@@ -203,7 +203,7 @@ export default function Step1(props: Step1Props): JSX.Element {
 
                             <span
                                 className={
-                                    "text-base font-bold text-strawberry-red"
+                                    "font-bold text-strawberry-red sm:text-sm lg:text-base"
                                 }
                                 aria-label={"error-message"}
                             >
@@ -213,7 +213,7 @@ export default function Step1(props: Step1Props): JSX.Element {
                         </div>
                         <input
                             id={"email"}
-                            className={`mt-2 w-full rounded-lg border-2 border-gray-300 p-3 px-5 text-xl font-bold text-marine-blue hover:border-purplish-blue focus:border-purplish-blue focus:outline-none ${
+                            className={`sm:text-md w-full rounded-md border-2 border-gray-300 px-5 font-bold text-marine-blue hover:border-purplish-blue focus:border-purplish-blue focus:outline-none sm:mt-1 sm:py-2 sm:font-semibold xl:mt-2 xl:py-3 xl:text-xl ${
                                 emailValidity === false &&
                                 "border-2 border-strawberry-red bg-rose-100"
                             }`}
@@ -230,14 +230,16 @@ export default function Step1(props: Step1Props): JSX.Element {
                     <div>
                         <div className={"flex justify-between"}>
                             <label
-                                className={"text-lg text-marine-blue"}
+                                className={
+                                    "text-marine-blue sm:text-sm xl:text-lg"
+                                }
                                 htmlFor="name"
                             >
                                 Phone Number
                             </label>
 
                             <span
-                                className={`text-base font-bold text-strawberry-red `}
+                                className={`font-bold text-strawberry-red sm:text-sm lg:text-base`}
                                 aria-label={"error-message"}
                             >
                                 {phoneNumValidity === false &&
@@ -246,7 +248,7 @@ export default function Step1(props: Step1Props): JSX.Element {
                         </div>
                         <input
                             id={"phoneNum"}
-                            className={`mt-2 w-full rounded-lg border-2 border-gray-300 p-3 px-5 text-xl font-bold text-marine-blue hover:border-purplish-blue focus:border-purplish-blue focus:outline-none ${
+                            className={`sm:text-md w-full rounded-md border-2 border-gray-300 px-5 font-bold text-marine-blue hover:border-purplish-blue focus:border-purplish-blue focus:outline-none sm:mt-1 sm:py-2 sm:font-semibold xl:mt-2 xl:py-3 xl:text-xl ${
                                 phoneNumValidity === false &&
                                 "border-2 border-strawberry-red bg-rose-100"
                             }`}
@@ -262,11 +264,12 @@ export default function Step1(props: Step1Props): JSX.Element {
                     </div>
                 </fieldset>
             </div>
+
             <StepFooter
                 formStep={0}
                 blockNextBtn={!formValidity}
                 onNextBtnClick={step1FormSubmitHandler}
             />
-        </>
+        </div>
     );
 }

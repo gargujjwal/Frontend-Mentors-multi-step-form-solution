@@ -2,7 +2,7 @@ import StepFooterProps from "../types/props/step-footer-props";
 
 export default function StepFooter(props: StepFooterProps): JSX.Element {
     return (
-        <footer className={"flex justify-between"}>
+        <footer className={"flex justify-between sm:w-full"}>
             <button
                 type={"button"}
                 className={`border-0 font-bold capitalize text-gray-400 hover:text-marine-blue ${
@@ -16,12 +16,12 @@ export default function StepFooter(props: StepFooterProps): JSX.Element {
 
             <button
                 type={"button"}
-                className={`rounded-md bg-marine-blue py-4 px-8 font-bold capitalize text-white shadow-2xl hover:bg-light-marine-blue ${
+                className={`rounded-md bg-marine-blue font-bold capitalize text-white shadow-2xl hover:bg-light-marine-blue  ${
                     props?.blockNextBtn && "cursor-not-allowed"
                 } ${
                     props.formStep === 3 &&
                     "bg-purplish-blue hover:bg-light-purplish-blue"
-                }`}
+                }sm:text-sm sm:px-5 sm:py-3 xl:py-4 xl:px-8`}
                 onClick={props?.onNextBtnClick}
                 disabled={props?.blockNextBtn}
             >

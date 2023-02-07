@@ -4,18 +4,28 @@ import ThankYouProps from "../../types/props/thank-you-props";
 export default function ThankYou(props: ThankYouProps): JSX.Element {
     console.log(props.userData);
     return (
-        <div className={"mt-20 flex flex-col gap-10 px-20 text-center"}>
-            <div className={"mx-auto h-2/5 w-2/5 rounded-full"}>
+        <div
+            className={
+                "mt-20 flex flex-col text-center sm:gap-6 xl:gap-10 xl:px-20"
+            }
+        >
+            <div
+                className={
+                    "mx-auto rounded-full sm:h-1/4 sm:w-1/4 xl:h-2/5 xl:w-2/5"
+                }
+            >
                 <img
                     className={"h-full w-full"}
                     src={thankYouIcon}
                     alt="thank-you-icon"
                 />
             </div>
-            <h1 className={"text-6xl font-bold text-marine-blue"}>
+            <h1
+                className={"font-bold text-marine-blue sm:text-3xl xl:text-6xl"}
+            >
                 Thank you!
             </h1>
-            <p className={"text-lg text-gray-400"}>
+            <p className={"text-gray-400 sm:text-base xl:text-lg"}>
                 Thanks for confirming your subscription! We hope you had fun
                 using our platform. If you ever need support, please feel free
                 to email us at support@loremgaming.com

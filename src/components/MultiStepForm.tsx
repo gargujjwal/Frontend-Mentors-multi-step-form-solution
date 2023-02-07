@@ -46,13 +46,15 @@ export default function MultiStepForm(props: MultiStepFormProps): JSX.Element {
         <form
             action={"#"}
             className={
-                "flex h-full w-full rounded-lg bg-white p-4 drop-shadow-2xl"
+                "flex h-full w-full rounded-lg drop-shadow-2xl sm:flex-col sm:gap-8 sm:bg-white xl:flex-row xl:p-4"
             }
             onSubmit={props.onSubmit}
         >
             <Sidebar currStep={formStep} />
             <main
-                className={"flex flex-1 flex-col justify-between py-12 px-[8%]"}
+                className={
+                    "rounded-lg bg-white sm:w-[90%] sm:translate-y-32 sm:translate-x-4 sm:px-7 sm:py-9 sm:drop-shadow-sm xl:flex xl:flex-1 xl:translate-x-0 xl:translate-y-0 xl:flex-col xl:justify-between xl:py-12 xl:px-[8%]"
+                }
             >
                 {formStep === stepsOfForm.length ? (
                     <ThankYou userData={props.userData} />

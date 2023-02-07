@@ -21,7 +21,7 @@ function PlanCard(props: PlanProps) {
     }
 
     return (
-        <label className={"flex-1"} htmlFor={props.id}>
+        <label htmlFor={props.id}>
             <input
                 className={"peer sr-only"}
                 type={"radio"}
@@ -31,32 +31,36 @@ function PlanCard(props: PlanProps) {
                 onChange={checkChangeHandler}
                 checked={isChecked}
             />
-            <div className="cursor-pointer select-none rounded-lg border-2 border-gray-100 p-7 shadow-sm transition-all hover:scale-105 hover:border-purplish-blue peer-checked:border-purplish-blue peer-checked:bg-magnolia">
-                <div className="mb-16 h-20 w-20 rounded-full drop-shadow-sm">
+            <div
+                className={`sm:grid-rows-${
+                    props.planType === "m" ? 2 : 3
+                } cursor-pointer select-none rounded-lg border-2 border-gray-100 shadow-sm transition-all hover:scale-105 hover:border-purplish-blue peer-checked:border-purplish-blue peer-checked:bg-magnolia sm:grid sm:grid-cols-[1fr_2fr] sm:gap-x-0 sm:py-3 sm:px-4 xl:p-7`}
+            >
+                <div className="rounded-full drop-shadow-sm sm:row-span-3 sm:row-span-2 sm:h-12 sm:w-12 xl:mb-16 xl:h-20 xl:w-20">
                     <img
-                        className={"h-full w-full"}
+                        className={"h-full w-full xl:my-auto"}
                         src={props.img}
                         alt={`${props.title}-icon`}
                     />
                 </div>
                 <h4
-                    className={"text-2xl font-bold capitalize text-marine-blue"}
+                    className={
+                        "font-bold capitalize text-marine-blue sm:text-lg xl:text-2xl"
+                    }
                 >
                     {props.title}
                 </h4>
-                <div className={"text-left text-lg text-gray-400"}>
+                <div className={"text-gray-400 sm:text-sm xl:text-lg"}>
                     $
                     {props.planType === "m"
                         ? `${props.monthlyCost}/mo`
                         : `${props.yearlyCost}/yo`}
                 </div>
-                <div
-                    className={`text-md text-marine-blue ${
-                        props.planType === "m" && "hidden"
-                    }`}
-                >
-                    {props.noOfMonthsFreeOnYear} months free
-                </div>
+                {props.planType !== "m" && (
+                    <div className={"text-marine-blue sm:text-sm"}>
+                        {props.noOfMonthsFreeOnYear} months free
+                    </div>
+                )}
             </div>
         </label>
     );
@@ -112,8 +116,8 @@ export default function Step2(props: Step2Props): JSX.Element {
     }
 
     return (
-        <>
-            <div>
+        <div className={"sm:flex sm:flex-col sm:gap-6"}>
+            <div className={"sm:flex sm:flex-col sm:gap-6"}>
                 <StepHeader
                     heading={"Select your plan"}
                     headingCaption={
@@ -122,7 +126,9 @@ export default function Step2(props: Step2Props): JSX.Element {
                 />
 
                 <div
-                    className={"my-12 flex justify-between gap-8"}
+                    className={
+                        "flex sm:flex-col sm:gap-3 xl:my-12 xl:justify-between xl:gap-8"
+                    }
                     aria-label={"available-plans"}
                 >
                     {AVAILABLE_PLANS.map(plan => (
@@ -138,15 +144,15 @@ export default function Step2(props: Step2Props): JSX.Element {
 
                 <div
                     className={
-                        "flex justify-center gap-8 bg-alabaster py-6 text-xl font-bold"
+                        "flex justify-center bg-alabaster font-semibold sm:gap-7 sm:py-4 sm:text-lg xl:gap-8 xl:py-6 xl:text-xl"
                     }
                 >
                     <span
-                        className={
+                        className={` ${
                             step2Data.planType === "m"
-                                ? `text-marine-blue`
+                                ? "text-marine-blue"
                                 : "text-gray-400"
-                        }
+                        } sm:text-base`}
                     >
                         Monthly
                     </span>
@@ -155,11 +161,11 @@ export default function Step2(props: Step2Props): JSX.Element {
                         onChange={onToggleHandler}
                     />
                     <span
-                        className={
+                        className={`${
                             step2Data.planType === "m"
                                 ? "text-gray-400"
                                 : "text-marine-blue"
-                        }
+                        } sm:text-base`}
                     >
                         Yearly
                     </span>
@@ -171,6 +177,6 @@ export default function Step2(props: Step2Props): JSX.Element {
                 onPrevBtnClick={prevBtnClickHandler}
                 onNextBtnClick={step2FormSubmitHandler}
             />
-        </>
+        </div>
     );
 }

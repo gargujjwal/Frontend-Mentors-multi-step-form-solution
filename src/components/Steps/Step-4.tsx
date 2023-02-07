@@ -35,8 +35,8 @@ export default function Step4(props: StepProps): JSX.Element {
                 : selectedPlan.yearlyCost
         );
     return (
-        <>
-            <div>
+        <div className={"sm:flex sm:flex-col sm:gap-6"}>
+            <div className={"sm:flex sm:flex-col sm:gap-6"}>
                 <StepHeader
                     heading={"Finishing up"}
                     headingCaption={
@@ -51,7 +51,11 @@ export default function Step4(props: StepProps): JSX.Element {
                         className={"flex justify-between"}
                         aria-label={"main-pack-chosen"}
                     >
-                        <div className={"flex flex-col gap-1 text-xl"}>
+                        <div
+                            className={
+                                "flex flex-col gap-1 text-marine-blue sm:text-base xl:text-xl"
+                            }
+                        >
                             <h3 className={"font-bold capitalize"}>
                                 {selectedPlan.title}(
                                 {props.userData.planType === "m"
@@ -72,7 +76,11 @@ export default function Step4(props: StepProps): JSX.Element {
                                 Change
                             </div>
                         </div>
-                        <div className={"text-xl font-bold text-marine-blue"}>
+                        <div
+                            className={
+                                "font-bold text-marine-blue sm:text-base xl:text-xl"
+                            }
+                        >
                             $
                             {props.userData.planType === "m"
                                 ? `${selectedPlan.monthlyCost}/mo`
@@ -89,8 +97,18 @@ export default function Step4(props: StepProps): JSX.Element {
                                 key={genUniqueId()}
                                 className={"flex justify-between"}
                             >
-                                <p className={"text-gray-400"}>{addOn.title}</p>
-                                <p className={"text-marine-blue"}>
+                                <p
+                                    className={
+                                        "capitalize text-gray-400 sm:text-sm lg:text-base"
+                                    }
+                                >
+                                    {addOn.title}
+                                </p>
+                                <p
+                                    className={
+                                        "text-marine-blue sm:text-sm lg:text-base"
+                                    }
+                                >
                                     +$
                                     {props.userData.planType === "m"
                                         ? `${addOn.monthlyCost}/mo`
@@ -101,11 +119,17 @@ export default function Step4(props: StepProps): JSX.Element {
                     </div>
                 </div>
                 <div
-                    className={"mt-4 flex justify-between p-8"}
+                    className={"flex justify-between sm:p-4 xl:p-8"}
                     aria-label={"total"}
                 >
-                    <p className={"text-lg text-gray-400"}>Total (per year)</p>
-                    <p className={"text-2xl font-bold text-purplish-blue"}>
+                    <p className={"text-gray-400 sm:text-base xl:text-lg"}>
+                        Total (per year)
+                    </p>
+                    <p
+                        className={
+                            "font-bold text-purplish-blue sm:text-base xl:text-2xl"
+                        }
+                    >
                         ${totalCost}/
                         {props.userData.planType === "m" ? "mo" : "yr"}
                     </p>
@@ -116,6 +140,6 @@ export default function Step4(props: StepProps): JSX.Element {
                 onPrevBtnClick={prevBtnClickHandler}
                 onNextBtnClick={nextBtnClickHandler}
             />
-        </>
+        </div>
     );
 }

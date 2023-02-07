@@ -24,7 +24,7 @@ function AddOnsOption(props: AddOnsOptionProp): JSX.Element {
         <label
             htmlFor={props.id}
             className={
-                "flex cursor-pointer select-none items-center justify-center gap-10 rounded-lg border-2 border-gray-100 px-9 py-7 shadow-md transition-all hover:scale-105 hover:border-purplish-blue hover:bg-magnolia"
+                "flex cursor-pointer select-none items-center justify-center rounded-lg border-2 border-gray-100 shadow-md transition-all hover:scale-105 hover:border-purplish-blue hover:bg-magnolia sm:gap-6 sm:py-4 sm:px-6 xl:gap-10 xl:py-7 xl:px-9"
             }
         >
             <div className={"relative"}>
@@ -38,24 +38,32 @@ function AddOnsOption(props: AddOnsOptionProp): JSX.Element {
                 />
                 <span
                     className={
-                        "absolute -top-2 -left-2 z-10 h-6 w-6 rounded-md border border-gray-300 bg-transparent after:absolute after:top-0.5 after:left-2 after:hidden after:h-4 after:w-2 after:rotate-45 after:border-0 after:border-r-[3px] after:border-b-[3px] after:border-white after:content-[''] peer-checked:border-0 peer-checked:bg-purplish-blue peer-checked:text-white peer-checked:after:block"
+                        "absolute z-10 rounded-md border border-gray-300 bg-transparent after:absolute after:top-0.5 after:left-2 after:hidden after:rotate-45 after:border-0 after:border-r-[3px] after:border-b-[3px] after:border-white after:content-[''] peer-checked:border-0 peer-checked:bg-purplish-blue peer-checked:text-white peer-checked:after:block sm:-top-2.5 sm:-left-2.5 sm:h-5 sm:w-5 sm:after:h-3.5 sm:after:w-1.5 xl:-top-2 xl:-left-2 xl:h-6 xl:w-6 xl:after:h-4 xl:after:w-2"
                     }
                 />
             </div>
-            <div className={"z-10 flex flex-1 flex-col gap-1"}>
-                <h4 className={"text-xl font-bold capitalize text-marine-blue"}>
+            <div className={"z-10 flex flex-1 flex-col sm:gap-0.5 xl:gap-1"}>
+                <h4
+                    className={
+                        "font-bold capitalize text-marine-blue sm:text-base xl:text-xl"
+                    }
+                >
                     {props.title}
                 </h4>
-                <div className={"text-md text-left text-gray-400"}>
+                <div className={"text-left text-gray-400 sm:text-[0.75rem]"}>
                     {props.desc}
                 </div>
             </div>
-            <span className={"z-10 text-xl font-bold text-purplish-blue"}>
+            <div
+                className={
+                    "z-10 font-bold text-purplish-blue sm:text-lg xl:text-xl"
+                }
+            >
                 $
                 {props.planType === "m"
                     ? `${props.monthlyCost}/mo`
                     : `${props.yearlyCost}/yo`}
-            </span>
+            </div>
         </label>
     );
 }
@@ -86,36 +94,33 @@ export default function Step3(props: Step3Props): JSX.Element {
     }
 
     return (
-        <>
-            <div>
-                <StepHeader
-                    heading={"Pick add-ons"}
-                    headingCaption={
-                        "Add-ons help enhance your gaming experience."
-                    }
-                />
+        <div className={"sm:flex sm:flex-col sm:gap-6"}>
+            <StepHeader
+                heading={"Pick add-ons"}
+                headingCaption={"Add-ons help enhance your gaming experience."}
+            />
 
-                <div className={"flex flex-col gap-6"}>
-                    {ADD_ONS.map(addOn => (
-                        <AddOnsOption
-                            key={addOn.id}
-                            onChange={step3DataChangeHandler}
-                            planType={props.userData.planType}
-                            checked={
-                                props.userData.addOnIDs.findIndex(
-                                    i => addOn.id === i
-                                ) !== -1
-                            }
-                            {...addOn}
-                        />
-                    ))}
-                </div>
+            <div className={"flex flex-col sm:gap-3 xl:gap-6"}>
+                {ADD_ONS.map(addOn => (
+                    <AddOnsOption
+                        key={addOn.id}
+                        onChange={step3DataChangeHandler}
+                        planType={props.userData.planType}
+                        checked={
+                            props.userData.addOnIDs.findIndex(
+                                i => addOn.id === i
+                            ) !== -1
+                        }
+                        {...addOn}
+                    />
+                ))}
             </div>
+
             <StepFooter
                 formStep={2}
                 onPrevBtnClick={prevBtnClickHandler}
                 onNextBtnClick={step3FormSubmitHandler}
             />
-        </>
+        </div>
     );
 }

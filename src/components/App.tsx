@@ -46,7 +46,7 @@ function App() {
         <div
             className={"flex h-screen flex-col gap-4 bg-magnolia object-cover"}
         >
-            <div className={"flex-1 px-40 py-20"}>
+            <div className={"flex-1 xl:px-40 xl:py-20"}>
                 <MultiStepForm
                     userData={userData}
                     onStep1Change={step1ChangeHandler}
