@@ -1,4 +1,4 @@
-import thankYouIcon from "../../../public/images/icon-thank-you.svg";
+import thankYouIcon from "../../assets/images/icon-thank-you.svg";
 import ThankYouProps from "../../types/props/thank-you-props";
 import Step from "../UI/Step";
 
