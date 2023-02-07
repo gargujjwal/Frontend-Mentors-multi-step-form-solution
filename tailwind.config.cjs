@@ -26,8 +26,8 @@ module.exports = {
                 "attribution-color": "hsl(228, 45%, 44%)"
             },
             backgroundImage: {
-                "sidebar-desktop": "url(./src/assets/images/bg-sidebar-desktop.svg)",
-                "sidebar-mobile": "url(./src/assets/images/bg-sidebar-mobile.svg)"
+                "sidebar-desktop": "url(./public/images/bg-sidebar-desktop.svg)",
+                "sidebar-mobile": "url(./public/images/bg-sidebar-mobile.svg)"
             }
         }
     },
