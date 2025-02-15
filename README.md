@@ -47,9 +47,9 @@ Users should be able to:
 ### Links
 
 - Solution
-  URL: [https://github.com/ujjwalgarg100204/Frontend-Mentors-multi-step-form-solution](https://github.com/ujjwalgarg100204/Frontend-Mentors-multi-step-form-solution)
+  URL: [https://github.com/gargujjwal/Frontend-Mentors-multi-step-form-solution](https://github.com/gargujjwal/Frontend-Mentors-multi-step-form-solution)
 - Live Site
-  URL: [https://ujjwalgarg100204.github.io/Frontend-Mentors-multi-step-form-solution/](https://ujjwalgarg100204.github.io/Frontend-Mentors-multi-step-form-solution/)
+  URL: [https://gargujjwal.github.io/Frontend-Mentors-multi-step-form-solution/](https://gargujjwal.github.io/Frontend-Mentors-multi-step-form-solution/)
 
 ## My process
 
@@ -62,6 +62,6 @@ Users should be able to:
 
 ## Author
 
-- Website - [Ujjwal Garg](https://github.com/ujjwalgarg100204)
-- Frontend Mentor - [@ujjwalgarg100204](https://www.frontendmentor.io/profile/ujjwalgarg100204)
-- Instagram - [@ujjwalgarg100204](https://www.instagram.com/ujjwalgarg100204/)
+- Website - [Ujjwal Garg](https://github.com/gargujjwal)
+- Frontend Mentor - [@gargujjwal](https://www.frontendmentor.io/profile/gargujjwal)
+- Instagram - [@gargujjwal](https://www.instagram.com/gargujjwal/)
